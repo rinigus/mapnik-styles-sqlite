@@ -1,4 +1,4 @@
-There are two Licenses covering this work. Original OSM Bright style
+There are several Licenses covering this work. Original OSM Bright style
 was released with Mapbox permissive license below. Changes introduced
 in OSM Bright SQLite were released with MIT license.
 
@@ -32,9 +32,25 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+Design License for OSM Bright TM2
+
+The visual design features of the Style (also known as the "look and
+feel") is licensed under the Creative Commons Attribution 3.0
+license. To view a copy of the license, visit
+http://creativecommons.org/licenses/by/3.0/. Attribution need not be
+provided on map images, but should be reasonably accessable from maps
+based on on the Style (for example, in a webpage linked from a
+copyright notice on the map).
+
+Copyright, database rights, and any other intellectual property or
+proprietary rights in vector tiles, satellite or aerial imagery, and
+any other map data offered by Mapbox for use with the Style are
+expressly excluded from this license.
+
+
 MIT License
 
-Copyright (c) 2016 rinigus
+Copyright (c) 2017 rinigus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
