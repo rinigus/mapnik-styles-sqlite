@@ -80,16 +80,16 @@ Map { font-directory: url(./fonts); }
 @trunk_case:        @trunk_line * 0.9;
 
 @primary_fill:      @trunk_fill;
-@primary_line:      mix(@trunk_fill, #800, 75);
-@primary_case:      @trunk_line * 0.9;
+@primary_line:      @trunk_line;
+@primary_case:      @trunk_case;
 
 // @secondary_line:    @land*0.8;
 // @secondary_fill:    #FFFFFF;
 // @secondary_case:    @secondary_line;
 
 @secondary_line:    @land*0.8;
-@secondary_fill:    #FFEEAA;
-@secondary_case:    @secondary_line;
+@secondary_fill:    @trunk_fill;
+@secondary_case:    @trunk_case;
 
 @standard_fill:     #FFFFFF;
 @standard_case:     @land*0.7;
