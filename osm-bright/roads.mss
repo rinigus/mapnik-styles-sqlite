@@ -47,7 +47,7 @@ as well. */
     }
 }
 
-#roads_med::fill {
+#roads_med::fill[zoom>=9][zoom<=11] {
     [type='motorway'] { line-color: @motorway_fill; }
     [type='trunk'] { line-color: @trunk_fill; }
 
