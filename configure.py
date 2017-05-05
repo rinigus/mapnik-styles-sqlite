@@ -10,7 +10,7 @@ config["importer"] = "spatialite"
 # The name given to the style. This is the name it will have in the TileMill
 # project list, and a sanitized version will be used as the directory name
 # in which the project is stored
-config["name"] = "OSM Bright SQLite"
+config["name"] = "OSM Bright"
 
 # The absolute path to your MapBox projects directory. You should 
 # not need to change this unless you have configured TileMill specially
