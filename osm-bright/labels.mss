@@ -47,7 +47,7 @@
 
 #place_state[zoom>=5][zoom<=10] {
   text-name:'[name]';
-  text-face-name:@sans_bold_italic;
+  text-face-name:@sans_bold;
   text-placement:point;
   text-fill:@state_text;
   text-halo-fill: @state_halo;
@@ -271,7 +271,7 @@
     text-halo-fill: @area_halo;
     // Specific style overrides for different types of areas:
     [type='park'][zoom>=10] {
-      text-face-name: @sans_lt_italic;
+      text-face-name: @sans_italic;
       text-fill: @park * 0.6;
       text-halo-fill: lighten(@park, 10%);
     }

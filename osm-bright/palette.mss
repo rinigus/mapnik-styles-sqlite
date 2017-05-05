@@ -22,14 +22,21 @@
 Map { font-directory: url(./fonts); }
 
 /* set up font sets for various weights and styles */
-@sans_lt:       "Open Sans Regular", "DejaVu Sans Book";
-@sans_lt_italic:    "Open Sans Italic", "DejaVu Sans Oblique";
+// @sans_lt:       "Open Sans Regular", "DejaVu Sans Book";
+// @sans_lt_italic:    "Open Sans Italic", "DejaVu Sans Oblique";
 
-@sans:          "Open Sans Semibold", "DejaVu Sans Book";
-@sans_italic:   "Open Sans Semibold Italic",  "DejaVu Sans Oblique";
+// @sans:          "Open Sans Semibold", "DejaVu Sans Book";
+// @sans_italic:   "Open Sans Semibold Italic",  "DejaVu Sans Oblique";
 
-@sans_bold:  "Open Sans Bold", "DejaVu Sans Bold";
-@sans_bold_italic:  "Open Sans Bold Italic","DejaVu Sans Bold Oblique", "DejaVu Sans Oblique";
+// @sans_bold:  "Open Sans Bold", "DejaVu Sans Bold";
+// @sans_bold_italic:  "Open Sans Bold Italic","DejaVu Sans Bold Oblique", "DejaVu Sans Oblique";
+
+//@sans_lt:       @regular;
+//@sans_lt_italic:  @italic;
+
+@sans:          'Noto Naskh Arabic Regular', 'Noto Sans Regular', 'Noto Sans Armenian Regular', 'Noto Sans Balinese Regular', 'Noto Sans Bengali Regular', 'Noto Sans Devanagari Regular', 'Noto Sans Ethiopic Regular', 'Noto Sans Georgian Regular', 'Noto Sans Gujarati Regular', 'Noto Sans Gurmukhi Regular', 'Noto Sans Hebrew Regular', 'Noto Sans JP Regular', 'Noto Sans Javanese Regular', 'Noto Sans KR Regular', 'Noto Sans Kannada Regular', 'Noto Sans Khmer Regular', 'Noto Sans Lao Regular', 'Noto Sans Mongolian Regular', 'Noto Sans Myanmar Regular', 'Noto Sans Oriya Regular', 'Noto Sans SC Regular', 'Noto Sans Sinhala Regular', 'Noto Sans TC Regular', 'Noto Sans Tamil Regular', 'Noto Sans Thai Regular', 'Noto Sans Tibetan Regular', 'Noto Sans Tifinagh Regular';
+@sans_bold:   'Noto Naskh Arabic Bold', 'Noto Sans Bold', 'Noto Sans Armenian Bold', 'Noto Sans Bengali Bold', 'Noto Sans Devanagari Bold', 'Noto Sans Ethiopic Bold', 'Noto Sans Georgian Bold', 'Noto Sans Gujarati Bold', 'Noto Sans Gurmukhi Bold', 'Noto Sans Hebrew Bold', 'Noto Sans JP Bold', 'Noto Sans KR Bold', 'Noto Sans Kannada Bold', 'Noto Sans Khmer Bold', 'Noto Sans Lao Bold', 'Noto Sans Myanmar Bold', 'Noto Sans Oriya Bold', 'Noto Sans SC Bold', 'Noto Sans Sinhala Bold', 'Noto Sans TC Bold', 'Noto Sans Tamil Bold', 'Noto Sans Thai Bold', 'Noto Naskh Arabic Regular', 'Noto Sans Regular', 'Noto Sans Armenian Regular', 'Noto Sans Balinese Regular', 'Noto Sans Bengali Regular', 'Noto Sans Devanagari Regular', 'Noto Sans Ethiopic Regular', 'Noto Sans Georgian Regular', 'Noto Sans Gujarati Regular', 'Noto Sans Gurmukhi Regular', 'Noto Sans Hebrew Regular', 'Noto Sans JP Regular', 'Noto Sans Javanese Regular', 'Noto Sans KR Regular', 'Noto Sans Kannada Regular', 'Noto Sans Khmer Regular', 'Noto Sans Lao Regular', 'Noto Sans Mongolian Regular', 'Noto Sans Myanmar Regular', 'Noto Sans Oriya Regular', 'Noto Sans SC Regular', 'Noto Sans Sinhala Regular', 'Noto Sans TC Regular', 'Noto Sans Tamil Regular', 'Noto Sans Thai Regular', 'Noto Sans Tibetan Regular', 'Noto Sans Tifinagh Regular';
+@sans_italic:  'Noto Sans Italic', 'Noto Naskh Arabic Regular', 'Noto Sans Regular', 'Noto Sans Armenian Regular', 'Noto Sans Balinese Regular', 'Noto Sans Bengali Regular', 'Noto Sans Devanagari Regular', 'Noto Sans Ethiopic Regular', 'Noto Sans Georgian Regular', 'Noto Sans Gujarati Regular', 'Noto Sans Gurmukhi Regular', 'Noto Sans Hebrew Regular', 'Noto Sans JP Regular', 'Noto Sans Javanese Regular', 'Noto Sans KR Regular', 'Noto Sans Kannada Regular', 'Noto Sans Khmer Regular', 'Noto Sans Lao Regular', 'Noto Sans Mongolian Regular', 'Noto Sans Myanmar Regular', 'Noto Sans Oriya Regular', 'Noto Sans SC Regular', 'Noto Sans Sinhala Regular', 'Noto Sans TC Regular', 'Noto Sans Tamil Regular', 'Noto Sans Thai Regular', 'Noto Sans Tibetan Regular', 'Noto Sans Tifinagh Regular';
 
 /* Some fonts are larger or smaller than others. Use this variable to
    globally increase or decrease the font sizes. */
