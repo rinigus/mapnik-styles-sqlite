@@ -4,6 +4,8 @@
     marker-placement: interior;
     marker-clip: false;
     marker-fill: @airtransport;
+    marker-line-color: @standard-halo-fill;
+    marker-line-width: @standard-halo-radius;
 }
 
 #airport[zoom>=14][hasiata=0] {    
@@ -11,6 +13,8 @@
     marker-placement: interior;
     marker-clip: false;
     marker-fill: @airtransport;
+    marker-line-color: @standard-halo-fill;
+    marker-line-width: @standard-halo-radius;
 }
 
 #airport::text[zoom>=10][zoom<15][hasiata>0] {

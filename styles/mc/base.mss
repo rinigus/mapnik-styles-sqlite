@@ -66,11 +66,11 @@
 #buildings[zoom>=14][zoom<=16] {
   polygon-fill:@building;
   [zoom>=14] {
-    line-color:darken(@building,5%);
+    line-color:lighten(@building,5%);
     line-width:0.2;
   }
   [zoom>=16] {
-    line-color:darken(@building,10%);
+    line-color:lighten(@building,10%);
     line-width:0.4;
   }
 }
@@ -98,7 +98,7 @@ Map { background-color: @water; }
 /* WATER WAYS
 /* ================================================================== */
 #waterway_low[zoom>=8][zoom<=12] {
-  line-color: @water * 0.9;
+  line-color: @water;
   line-cap: round;
   line-width: 0.5;
   [zoom=11]{ line-width: 0.6; }
@@ -106,7 +106,7 @@ Map { background-color: @water; }
 }
 
 #waterway_med[zoom>=13][zoom<=14] {
-  line-color: @water * 0.9;
+  line-color: @water;
   line-cap: round;
   [type='river'],
   [type='canal'] {
@@ -122,7 +122,7 @@ Map { background-color: @water; }
 }
   
 #waterway_high[zoom>=15] {
-  line-color: @water * 0.9;
+  line-color: @water;
   line-cap: round;
   [type='river'],
   [type='canal'] {

@@ -288,7 +288,7 @@
       text-halo-fill: lighten(@school, 10%);
     }
     [type='water'][zoom>=10] {
-        text-fill: @water * 0.75;
+        text-fill: @water-text;
         text-halo-fill: fadeout(lighten(@water,5%),25%);
         text-halo-radius: 1;
         text-face-name: @sans_italic;
@@ -337,7 +337,7 @@
 #waterway_label[type='stream'][zoom>=17] {
   text-name: '[name]';
   text-face-name: @sans_italic;
-  text-fill: @water * 0.75;
+  text-fill: @water-text;
   text-halo-fill: fadeout(lighten(@water,5%),25%);
   text-halo-radius: 1;
   text-placement: line;

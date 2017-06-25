@@ -117,21 +117,21 @@ Map { }
 // @cycle_case:        @land;
 
 @rail_line:         #999;
-@rail_fill:         #fff;
+@rail_fill:         #000;
 @rail_case:         fadeout(@land,50%);
 // @rail_fill:         #fff;
 // @rail_case:         @land;
 
-@aeroway:           #ddd;
+@aeroway:           mix(#ddd, @land, 50);
 
 /* ================================================================== */
 /* BOUNDARY COLORS
 /* ================================================================== */
 
-@admin_2:           #324;
+@admin_2:           mix(#FFF, @land, 75);
 
-@fence_color:       #aab;
-@barrier_point:     #c7c7c7;
+@fence_color:       mix(#FFF, @land, 50);
+@barrier_point:     mix(#FFF, @land, 50);
 
 /* ================================================================== */
 /* LABEL COLORS
@@ -182,14 +182,16 @@ Map { }
 @standard-poi-font: @book-fonts;
 
 @water-color: @water;
-@airtransport: #8461C4;
+@water-text: #66f;
+@ferry-route: #66f;
+@airtransport: #FFF;
 
 // POI colors
 // Colors and corresponding IDs in the database
 @amenity-brown:  #1DC2DF; 	// 0
 @health-color: #767CCE;		// 1
 @landform-color: #d08f55;	// 2
-@transportation-icon: #0092da;	// 3
+@transportation-icon: #14BEEE;	// 3
 @shop-icon: #6196DA;		// 4
 
 /* ****************************************************************** */
