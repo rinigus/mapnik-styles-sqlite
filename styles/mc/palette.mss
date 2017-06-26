@@ -116,7 +116,6 @@ Map { }
 // @cycle_fill:        #FAFAF5;
 // @cycle_case:        @land;
 
-@rail_line:         #000000;
 @rail_fill:         #000;
 @rail_case:         mix(@trunk_case, @land,75%);
 // @rail_fill:         #fff;

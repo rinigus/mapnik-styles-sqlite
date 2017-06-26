@@ -100,6 +100,7 @@ Map { }
 
 @standard_fill:     #FFFFFF;
 @standard_case:     @land*0.7;
+@standard_line:     @standard_case;
 
 @noauto_fill:       #EAEAE9;
 @noauto_case:       @standard_case;
@@ -115,9 +116,8 @@ Map { }
 // @cycle_fill:        #FAFAF5;
 // @cycle_case:        @land;
 
-@rail_line:         #999;
-@rail_fill:         #fff;
-@rail_case:         fadeout(@land,50%);
+@rail_fill:         mix(#000, @land, 50);
+@rail_case:         #fff; //fadeout(@land,50%);
 // @rail_fill:         #fff;
 // @rail_case:         @land;
 

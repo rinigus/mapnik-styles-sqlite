@@ -593,7 +593,7 @@ zooms, delta between fill and the case increases
     }
 }
 
-#bridge::railway[type='railway'] {
+#bridge::railway[zoom>=12][type='railway'] {
     line-cap: round;
     line-join: round;
     casing/line-color: @rail_case;
