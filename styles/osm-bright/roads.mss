@@ -154,9 +154,8 @@ zooms, delta between fill and the case increases
     }
 }
 
-#roads_high::path[zoom>=14][zoom<=20][type='path'] {
+#roads_high::path[zoom>=14][type='path'] {
     /* -- colors & styles -- */
-    line-width: 0;
     line-cap: round;
     line-join: round;
 
