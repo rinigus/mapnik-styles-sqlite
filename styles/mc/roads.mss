@@ -154,7 +154,7 @@ zooms, delta between fill and the case increases
     }
 }
 
-#roads_high::path[zoom>=14][zoom<=20][type='path'] {
+#roads_high::path[zoom>=14][type='path'] {
     /* -- colors & styles -- */
     line-width: 0;
     line-cap: round;
@@ -163,11 +163,11 @@ zooms, delta between fill and the case increases
     line-color: @path_line;
     line-dasharray: 4,4;
     line-width: 1.0;
-    [zoom>=16] { line-width: 1.2; }
+    [zoom=16] { line-width: 1.2; }
     [zoom>=17] { line-width: 1.5; }        
 }
 
-#roads_high::outline[zoom>=14][zoom<=20] {
+#roads_high::outline[zoom>=14] {
     /* -- colors & styles -- */
     line-cap: round;
     line-join: round;
@@ -205,7 +205,7 @@ zooms, delta between fill and the case increases
         [type='minorroad'], [type='service'], [type='noauto']
         { line-width: @rdz16_min + 2; }
     }
-    [zoom>=17] {
+    [zoom=17] {
         [type='motorway'] { line-width: @rdz17_moto + 3; }
         [type='trunk'] { line-width: @rdz17_tr + 3; }
         [type='primary'] { line-width: @rdz17_pri + 2.5; }
@@ -225,7 +225,7 @@ zooms, delta between fill and the case increases
     }
 }
 
-#roads_high[zoom>=14][zoom<=20] {
+#roads_high[zoom>=14] {
     /* -- colors & styles -- */
     line-color: @standard_fill;
     line-width: 0;
@@ -243,7 +243,7 @@ zooms, delta between fill and the case increases
     }
     [type='cycleway'] {
         line-width: 1.0;
-        [zoom>=16] { line-width: 1.2; }
+        [zoom=16] { line-width: 1.2; }
         [zoom>=17] { line-width: 1.5; }        
     }
     
@@ -487,7 +487,7 @@ zooms, delta between fill and the case increases
 }
 
 /* ---- Bridges -------------------------------- */
-#bridge::outline[zoom>=12][zoom<=20]{
+#bridge::outline[zoom>=12]{
     /* -- colors & styles -- */
     line-cap: butt;
     line-join: round;
@@ -539,7 +539,7 @@ zooms, delta between fill and the case increases
         [type='minorroad'], [type='service'], [type='noauto']
         { line-width: @rdz16_min + 2; }
     }
-    [zoom>=17] {
+    [zoom=17] {
         [type='motorway'] { line-width: @rdz17_moto + 3; }
         [type='trunk'] { line-width: @rdz17_tr + 3; }
         [type='primary'] { line-width: @rdz17_pri + 2.5; }
@@ -559,7 +559,7 @@ zooms, delta between fill and the case increases
     }
 }
 
-#bridge::2line[zoom>=14][zoom<=20]{
+#bridge::2line[zoom>=14]{
     /* -- colors & styles -- */
     [type='noauto'] {
         line-color: @land;
@@ -609,7 +609,7 @@ zooms, delta between fill and the case increases
     [zoom>=18] { casing/line-width: 8; dash/line-width: 4; }
 }
 
-#bridge::inline[zoom>=12][zoom<=20]{
+#bridge::inline[zoom>=12]{
     /* -- colors & styles -- */
     line-color: @standard_fill;
     line-width: 0;
