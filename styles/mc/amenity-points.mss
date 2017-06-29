@@ -41,7 +41,7 @@
 
 
 
-#amenity_fuel[zoom >= 12] {
+#amenity_fuel[zoom >= 16] {
     [feature = 'amenity_charging_station'] {
         marker-file: url('icons/charging-station-15.svg');
         marker-fill: @transportation-icon;
