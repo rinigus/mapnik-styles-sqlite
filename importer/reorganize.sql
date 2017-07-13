@@ -18,17 +18,17 @@ CREATE VIEW vw_osm_aeroways AS SELECT geometry, (aeroway='runway') AS is_runway 
 WHERE aeroway IN ('runway', 'taxiway');
 
 DROP VIEW IF EXISTS vw_osm_airports;
-CREATE VIEW vw_osm_airports AS SELECT geometry, name, iata
+CREATE VIEW vw_osm_airports AS SELECT geometry, name, name_en, iata
 FROM (
-SELECT geometry, name, iata FROM points WHERE aeroway='aerodrome'
+SELECT geometry, name, name_en, iata FROM points WHERE aeroway='aerodrome'
 UNION ALL
-SELECT ST_PointOnSurface(geometry) AS geometry, name, iata FROM multipolygons
+SELECT ST_PointOnSurface(geometry) AS geometry, name, name_en, iata FROM multipolygons
 WHERE aeroway='aerodrome' AND ST_IsValid(geometry)
 );
 
 -- osm_id is kept to allow filtering later
 DROP VIEW IF EXISTS vw_osm_amenity;
-CREATE VIEW vw_osm_amenity AS SELECT osm_id, geometry, name,
+CREATE VIEW vw_osm_amenity AS SELECT osm_id, geometry, name, name_en,
 CASE
 WHEN amenity IN ('place_of_worship') THEN
 CASE
@@ -47,9 +47,9 @@ WHEN barrier IS NOT NULL THEN 'barrier_' || barrier
 WHEN amenity IS NOT NULL THEN 'amenity_' || amenity
 ELSE NULL END AS feature
 FROM (
-SELECT osm_id, geometry, name, tourism, aeroway, highway, man_made, shop, leisure, natural, amenity, building, barrier, religion FROM points WHERE name IS NOT NULL
+SELECT osm_id, geometry, name, name_en, tourism, aeroway, highway, man_made, shop, leisure, natural, amenity, building, barrier, religion FROM points WHERE name IS NOT NULL
 UNION ALL
-SELECT osm_id, ST_PointOnSurface(geometry) AS geometry, name, tourism, aeroway, highway, man_made, shop, leisure, natural, amenity, building, barrier, religion FROM multipolygons
+SELECT osm_id, ST_PointOnSurface(geometry) AS geometry, name, name_en, tourism, aeroway, highway, man_made, shop, leisure, natural, amenity, building, barrier, religion FROM multipolygons
 WHERE name IS NOT NULL AND ST_IsValid(geometry)
 )
 WHERE
@@ -71,7 +71,7 @@ CREATE TABLE tmp_osm_amenity_ids AS SELECT osm_id AS osm_id FROM vw_osm_amenity;
 CREATE INDEX index_tmp_osm_amenity_ids ON tmp_osm_amenity_ids(osm_id);
 
 DROP VIEW IF EXISTS vw_osm_amenity_z13;
-CREATE VIEW vw_osm_amenity_z13 AS SELECT geometry, name,
+CREATE VIEW vw_osm_amenity_z13 AS SELECT geometry, name, name_en,
 CASE
 WHEN feature IN ('amenity_hospital') THEN 'hospital'
 WHEN feature IN ('natural_peak') THEN 'mountain'
@@ -85,7 +85,7 @@ FROM vw_osm_amenity
 WHERE icon IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_amenity_z14;
-CREATE VIEW vw_osm_amenity_z14 AS SELECT geometry, name,
+CREATE VIEW vw_osm_amenity_z14 AS SELECT geometry, name, name_en,
 CASE
 WHEN feature IN ('amenity_townhall') THEN 'town-hall'
 WHEN feature IN ('amenity_fire_station') THEN 'fire-station'
@@ -94,7 +94,7 @@ FROM vw_osm_amenity
 WHERE icon IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_amenity_z15;
-CREATE VIEW vw_osm_amenity_z15 AS SELECT geometry, name,
+CREATE VIEW vw_osm_amenity_z15 AS SELECT geometry, name, name_en,
 CASE
 WHEN feature IN ('amenity_university', 'building_university', 'amenity_college', 'building_college' ) THEN 'college'
 WHEN feature IN ('amenity_police', 'barrier_border_control') THEN 'police'
@@ -105,7 +105,7 @@ FROM vw_osm_amenity
 WHERE icon IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_amenity_z16;
-CREATE VIEW vw_osm_amenity_z16 AS SELECT geometry, name,
+CREATE VIEW vw_osm_amenity_z16 AS SELECT geometry, name, name_en,
 CASE
 WHEN feature IN ('amenity_school', 'building_school' ) THEN 'school'
 WHEN feature IN ('amenity_kindergarten', 'building_kindergarten' ) THEN 'playground'
@@ -124,7 +124,7 @@ FROM vw_osm_amenity
 WHERE icon IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_amenity_z17;
-CREATE VIEW vw_osm_amenity_z17 AS SELECT geometry, name,
+CREATE VIEW vw_osm_amenity_z17 AS SELECT geometry, name, name_en,
 CASE
 WHEN feature IN ('tourism_alpine_hut', 'tourism_wilderness_hut', 'amenity_shelter') THEN 'shelter'
 WHEN feature IN ('highway_bus_stop', 'amenity_bus_station') THEN 'bus'
@@ -185,12 +185,12 @@ FROM vw_osm_amenity
 WHERE icon IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_amenity_fuel;
-CREATE VIEW vw_osm_amenity_fuel AS SELECT geometry, name, feature FROM vw_osm_amenity
+CREATE VIEW vw_osm_amenity_fuel AS SELECT geometry, name, name_en, feature FROM vw_osm_amenity
 WHERE feature IN ('amenity_charging_station', 'amenity_fuel');
 
 -- skip areas which are registered as amenity
 DROP VIEW IF EXISTS vw_osm_area_labels;
-CREATE VIEW vw_osm_area_labels AS SELECT ST_PointOnSurface(geometry) AS geometry, name,
+CREATE VIEW vw_osm_area_labels AS SELECT ST_PointOnSurface(geometry) AS geometry, name, name_en,
 CASE
 WHEN leisure IN ('park', 'garden') THEN 'park'
 WHEN leisure IN ('golf_course') THEN leisure
@@ -245,7 +245,7 @@ FROM points
 WHERE addr_housenumber IS NOT NULL OR addr_housename IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_ferryways;
-CREATE VIEW vw_osm_ferryways AS SELECT geometry, name FROM lines WHERE route = 'ferry';
+CREATE VIEW vw_osm_ferryways AS SELECT geometry, name, name_en FROM lines WHERE route = 'ferry';
 
 DROP VIEW IF EXISTS vw_osm_landusages;
 CREATE VIEW vw_osm_landusages AS SELECT geometry, amenity AS type, ST_Area(geometry) AS area FROM   multipolygons
@@ -268,7 +268,7 @@ WHERE  leisure IN ('park', 'garden', 'playground', 'golf_course', 'sports_centre
 -- Roads
 
 -- DROP VIEW IF EXISTS vw_osm_motorways;
--- CREATE VIEW vw_osm_motorways AS SELECT geometry, name, highway AS type, 
+-- CREATE VIEW vw_osm_motorways AS SELECT geometry, name, name_en, highway AS type, 
 -- CASE
 -- WHEN oneway IN ('yes', '1', 'true') THEN 1
 -- WHEN oneway IN ('-1') THEN -1
@@ -283,13 +283,13 @@ WHERE highway IN ('motorway', 'trunk');
 
 DROP VIEW IF EXISTS vw_osm_roads_gen1;
 CREATE VIEW vw_osm_roads_gen1 AS SELECT ST_Simplify(geometry, 0.0005) AS geometry,
-name, ref, highway AS type
+name, name_en, ref, highway AS type
 FROM lines
 WHERE highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'secondary');
 
 DROP VIEW IF EXISTS vw_osm_roads_gen2;
 CREATE VIEW vw_osm_roads_gen2 AS SELECT ST_Simplify(geometry, 0.0002) AS geometry,
-name, ref, oneway, z_order, 
+name, name_en, ref, oneway, z_order, 
 CASE
 WHEN railway IN ('light_rail', 'subway', 'narrow_gauge', 'rail', 'tram') THEN 'railway'
 WHEN highway IN ('primary_link', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'road', 'living_street') THEN 'minorroad'
@@ -298,7 +298,7 @@ ELSE NULL END AS type
 FROM lines WHERE type IS NOT NULL AND (tunnel IS NULL OR tunnel NOT IN ('yes', '1', 'true'));
 
 DROP VIEW IF EXISTS vw_osm_roads;
-CREATE VIEW vw_osm_roads AS SELECT geometry, name, ref, oneway, z_order, 
+CREATE VIEW vw_osm_roads AS SELECT geometry, name, name_en, ref, oneway, z_order, 
 CASE
 WHEN highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'secondary') THEN highway
 WHEN highway IN ('primary_link', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'road', 'living_street') THEN 'minorroad'
@@ -337,7 +337,7 @@ FROM lines WHERE type IS NOT NULL AND bridge IN ('yes', '1', 'true');
 -- Roads: done
 
 DROP VIEW IF EXISTS vw_osm_places_country;
-CREATE VIEW vw_osm_places_country AS SELECT geometry, name, 
+CREATE VIEW vw_osm_places_country AS SELECT geometry, name, name_en, 
 CASE
 WHEN population IS NOT NULL THEN CAST(population AS INTEGER)
 ELSE 0
@@ -345,7 +345,7 @@ END AS population FROM points
 WHERE  place IN ('country');
 
 DROP VIEW IF EXISTS vw_osm_places_state;
-CREATE VIEW vw_osm_places_state AS SELECT geometry, name, 
+CREATE VIEW vw_osm_places_state AS SELECT geometry, name, name_en, 
 CASE
 WHEN population IS NOT NULL THEN CAST(population AS INTEGER)
 ELSE 0
@@ -353,7 +353,7 @@ END AS population FROM points
 WHERE  place IN ('state');
 
 DROP VIEW IF EXISTS vw_osm_places_city;
-CREATE VIEW vw_osm_places_city AS SELECT geometry, name, 
+CREATE VIEW vw_osm_places_city AS SELECT geometry, name, name_en, 
 CASE
 WHEN place = 'city' THEN 6
 WHEN place = 'region' THEN 8
@@ -367,7 +367,7 @@ END AS population FROM points
 WHERE  place IN ('region', 'county', 'city');
 
 DROP VIEW IF EXISTS vw_osm_places_town;
-CREATE VIEW vw_osm_places_town AS SELECT geometry, name, 
+CREATE VIEW vw_osm_places_town AS SELECT geometry, name, name_en, 
 CASE
 WHEN population IS NOT NULL THEN CAST(population AS INTEGER)
 ELSE 0
@@ -375,7 +375,7 @@ END AS population FROM points
 WHERE  place IN ('town');
 
 DROP VIEW IF EXISTS vw_osm_places_small;
-CREATE VIEW vw_osm_places_small AS SELECT geometry, name, 
+CREATE VIEW vw_osm_places_small AS SELECT geometry, name, name_en, 
 CASE
 WHEN place = 'hamlet' THEN 3
 WHEN place = 'suburb' THEN 2
@@ -390,29 +390,29 @@ END AS population FROM points
 WHERE  place IN ('village', 'hamlet', 'suburb', 'neighbourhood');
 
 DROP VIEW IF EXISTS vw_osm_places_tiny;
-CREATE VIEW vw_osm_places_tiny AS SELECT geometry, name
+CREATE VIEW vw_osm_places_tiny AS SELECT geometry, name, name_en
 FROM points
 WHERE  place IN ('locality');
 
 DROP VIEW IF EXISTS vw_osm_railway_stations;
-CREATE VIEW vw_osm_railway_stations AS SELECT geometry, name, railway
+CREATE VIEW vw_osm_railway_stations AS SELECT geometry, name, name_en, railway
 FROM points WHERE railway IN ('subway_entrance', 'station', 'halt', 'tram_stop');
 
 DROP VIEW IF EXISTS vw_osm_turning_circles;
 CREATE VIEW vw_osm_turning_circles AS SELECT geometry FROM points WHERE highway IN ('turning_circle');
 
 DROP VIEW IF EXISTS vw_osm_waterways;
-CREATE VIEW vw_osm_waterways AS SELECT geometry, name, waterway AS type FROM lines
+CREATE VIEW vw_osm_waterways AS SELECT geometry, name, name_en, waterway AS type FROM lines
 WHERE  waterway IN ('stream', 'river', 'canal', 'drain', 'ditch')
-UNION ALL SELECT geometry, name, barrier AS type FROM lines
+UNION ALL SELECT geometry, name, name_en, barrier AS type FROM lines
 WHERE  barrier IN ('ditch');
 
 DROP VIEW IF EXISTS vw_osm_waterareas;
-CREATE VIEW vw_osm_waterareas AS SELECT geometry, name, waterway AS type FROM multipolygons
+CREATE VIEW vw_osm_waterareas AS SELECT geometry, name, name_en, waterway AS type FROM multipolygons
 WHERE waterway IN ('riverbank')
-UNION ALL SELECT geometry, name, landuse AS type FROM multipolygons
+UNION ALL SELECT geometry, name, name_en, landuse AS type FROM multipolygons
 WHERE  landuse IN ('basin', 'reservoir')
-UNION ALL SELECT geometry, name, natural AS type FROM multipolygons
+UNION ALL SELECT geometry, name, name_en, natural AS type FROM multipolygons
 WHERE  natural IN ('water');
 
 -----------------------------------------------------------------------------------
@@ -458,7 +458,7 @@ WHERE  ST_Area(geometry)>1e-5;
 
 -- DROP VIEW IF EXISTS vw_osm_motorways_gen0;
 -- CREATE VIEW vw_osm_motorways_gen0 AS
--- SELECT ST_SimplifyPreserveTopology(geometry, 0.0018) AS geometry, name, type, oneway, ref, layer, z_order, access
+-- SELECT ST_SimplifyPreserveTopology(geometry, 0.0018) AS geometry, name, name_en, type, oneway, ref, layer, z_order, access
 -- FROM   vw_osm_motorways;
 
 DROP VIEW IF EXISTS vw_osm_motorways_gen0;
@@ -468,7 +468,7 @@ FROM   vw_osm_motorways;
 
 -- DROP VIEW IF EXISTS vw_osm_motorways_gen1;
 -- CREATE VIEW vw_osm_motorways_gen1 AS
--- SELECT ST_SimplifyPreserveTopology(geometry, 0.00045) AS geometry, name, type, oneway, ref, layer, z_order, access
+-- SELECT ST_SimplifyPreserveTopology(geometry, 0.00045) AS geometry, name, name_en, type, oneway, ref, layer, z_order, access
 -- FROM   vw_osm_motorways;
 
 DROP VIEW IF EXISTS vw_osm_waterareas_gen0;

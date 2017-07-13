@@ -47,6 +47,11 @@ for table in `sqlite3 "$D" "SELECT name FROM sqlite_master WHERE type='table' AN
 done
 
 for table in `sqlite3 "$D" "SELECT name FROM sqlite_master WHERE type='table' AND name GLOB 'osm_*'"`; do
+    echo "Clean up duplicate names:" $table
+    sqlite3 "$D" "UPDATE ${table} SET name_en=NULL WHERE name=name_en" || true
+done
+
+for table in `sqlite3 "$D" "SELECT name FROM sqlite_master WHERE type='table' AND name GLOB 'osm_*'"`; do
     echo "Converting to WKB:" $table
     spatialite -silent -noheader "$D" "SELECT DiscardGeometryColumn('${table}', 'GEOMETRY'); UPDATE ${table} SET geometry = (SELECT AsBinary(geometry) FROM ${table} t2 where ${table}.rowid=t2.rowid);"
 
