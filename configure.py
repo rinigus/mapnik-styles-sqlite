@@ -11,6 +11,7 @@ config["importer"] = "spatialite"
 # project list, and a sanitized version will be used as the directory name
 # in which the project is stored
 config["name"] = { "styles/osm-bright": "OSM Bright",
+                   "styles/osm-bright-en": "OSM Bright English",
                    "styles/osm-bright-car": "OSM Bright Car",
                    "styles/mc": "Midnight Commander",
                    "styles/mc-car": "Midnight Commander Car",
