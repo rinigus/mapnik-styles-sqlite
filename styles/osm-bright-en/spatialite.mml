@@ -572,7 +572,7 @@
         {
             "Datasource": {
                 "key_field": "rowid",
-                "table": "(SELECT rowid, geometry, bname FROM osm_building_labels) AS data"
+                "table": "(SELECT rowid, geometry, CASE WHEN bname_en IS NOT NULL THEN bname_en ELSE bname END AS bname FROM osm_building_labels) AS data"
             },
             "class": "", 
             "geometry": "point", 
