@@ -233,14 +233,19 @@ CASE
 WHEN name IS NOT NULL AND addr_housenumber IS NOT NULL THEN name || ' ' || addr_housenumber
 WHEN name IS NOT NULL THEN name
 ELSE addr_housenumber
-END AS bname
+END AS bname,
+CASE
+WHEN name_en IS NOT NULL AND addr_housenumber IS NOT NULL THEN name_en || ' ' || addr_housenumber
+WHEN name_en IS NOT NULL THEN name_en
+ELSE NULL
+END AS bname_en
 FROM multipolygons
 WHERE ST_IsValid(geometry) AND building IS NOT NULL AND bname IS NOT NULL
 UNION ALL SELECT geometry, CASE
 WHEN addr_housename IS NOT NULL AND addr_housenumber IS NOT NULL THEN addr_housename || ' ' || addr_housenumber
 WHEN addr_housename IS NOT NULL THEN addr_housename
 ELSE addr_housenumber
-END AS bname
+END AS bname, NULL AS bname_en
 FROM points
 WHERE addr_housenumber IS NOT NULL OR addr_housename IS NOT NULL;
 
