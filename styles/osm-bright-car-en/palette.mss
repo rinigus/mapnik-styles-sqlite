@@ -1,0 +1,1 @@
+../osm-bright-car/palette.mss

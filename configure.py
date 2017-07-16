@@ -13,8 +13,11 @@ config["importer"] = "spatialite"
 config["name"] = { "styles/osm-bright": "OSM Bright",
                    "styles/osm-bright-en": "OSM Bright English",
                    "styles/osm-bright-car": "OSM Bright Car",
+                   "styles/osm-bright-car-en": "OSM Bright Car English",
                    "styles/mc": "Midnight Commander",
+                   "styles/mc-en": "Midnight Commander English",
                    "styles/mc-car": "Midnight Commander Car",
+                   "styles/mc-car-en": "Midnight Commander Car English",
 }
 
 # The absolute path to your MapBox projects directory. You should 
