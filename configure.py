@@ -3,6 +3,8 @@
 
 from os import path, getcwd
 from collections import defaultdict
+import os
+
 config = defaultdict(defaultdict)
 
 config["importer"] = "spatialite"
@@ -23,6 +25,8 @@ config["name"] = { "styles/osm-bright": "OSM Bright",
 # The absolute path to your MapBox projects directory. You should 
 # not need to change this unless you have configured TileMill specially
 config["path"] = path.expanduser("./install")
+if not os.path.exists(config["path"]):
+    os.makedirs(config["path"])
 
 # SQLite connection setup 
 config["sqlite"]["metadata"] = "mapnik_metadata"
