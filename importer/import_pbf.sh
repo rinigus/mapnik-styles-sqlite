@@ -9,15 +9,15 @@ set -e
 CONVERT_TO_TWKB="Y"
 TWKB_PRECISION=6
 
-export PATH=`pwd`/spatialite/install/bin:$PATH
-export LD_LIBRARY_PATH=`pwd`/spatialite/install/lib
+PROGPATH=$(dirname "$0")
+
+export PATH=$PROGPATH/spatialite/install/bin:$PATH
+export LD_LIBRARY_PATH=$PROGPATH/spatialite/install/lib
 
 if [[ "$#" -ne 1 && "$#" -ne 2 ]]; then
     echo "Usage: ./import.sh openstreetmap_filename [sqlite_filename]"
     exit 0
 fi
-
-PROGPATH=$(dirname "$0")
 
 if [ "$#" -eq 1 ]; then
     D=${1%-latest.osm.pbf}
