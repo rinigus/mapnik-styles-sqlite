@@ -9,6 +9,9 @@ set -e
 CONVERT_TO_TWKB="Y"
 TWKB_PRECISION=6
 
+export PATH=`pwd`/spatialite/install/bin:$PATH
+export LD_LIBRARY_PATH=`pwd`/spatialite/install/lib
+
 if [[ "$#" -ne 1 && "$#" -ne 2 ]]; then
     echo "Usage: ./import.sh openstreetmap_filename [sqlite_filename]"
     exit 0
@@ -19,13 +22,13 @@ PROGPATH=$(dirname "$0")
 if [ "$#" -eq 1 ]; then
     D=${1%-latest.osm.pbf}
     D=${D%.osm.pbf}
-    D=${D%.pbf} 
+    D=${D%.pbf}
     D=${D%.osm}
     D=$D.sqlite
 
-    if [ "$1" == "$D" ] 
+    if [ "$1" == "$D" ]
     then
-        D=$1-imported
+	D=$1-imported
     fi
 fi
 
@@ -52,16 +55,18 @@ for table in `sqlite3 "$D" "SELECT name FROM sqlite_master WHERE type='table' AN
 done
 
 for table in `sqlite3 "$D" "SELECT name FROM sqlite_master WHERE type='table' AND name GLOB 'osm_*'"`; do
-    echo "Converting to WKB:" $table
-    spatialite -silent -noheader "$D" "SELECT DiscardGeometryColumn('${table}', 'GEOMETRY'); UPDATE ${table} SET geometry = (SELECT AsBinary(geometry) FROM ${table} t2 where ${table}.rowid=t2.rowid);"
-
     if [ "x$CONVERT_TO_TWKB" == "xY" ]; then
-        precision=$TWKB_PRECISION
-        if [[ "$table" == "osm_admin_gen0" || "$table" == "osm_admin_gen1" || "$table" == "osm_landusages_gen0" || "$table" == "osm_landusages_gen1" || "$table" == "osm_landusage_overlays_gen0" || "$table" == "osm_landusage_overlays_gen1" || "$table" == "osm_motorways_gen0" || "$table" == "osm_roads_gen1" || "$table" == "osm_roads_gen2" || "$table" == "osm_waterareas_gen0" || "$table" == "osm_waterareas_gen1" || "$table" == "osm_waterways_low" ]]; then
-            precision=4
-        fi
-        echo "Converting to TWKB:" $table        
-        $PROGPATH/wkb2twkb-sqlite/wkb2twkb-sqlite "$D" ${table} 'GEOMETRY' $precision
+
+	precision=$TWKB_PRECISION
+	if [[ "$table" == "osm_admin_gen0" || "$table" == "osm_admin_gen1" || "$table" == "osm_landusages_gen0" || "$table" == "osm_landusages_gen1" || "$table" == "osm_landusage_overlays_gen0" || "$table" == "osm_landusage_overlays_gen1" || "$table" == "osm_motorways_gen0" || "$table" == "osm_roads_gen1" || "$table" == "osm_roads_gen2" || "$table" == "osm_waterareas_gen0" || "$table" == "osm_waterareas_gen1" || "$table" == "osm_waterways_low" ]]; then
+	    precision=4
+	fi
+	echo "Converting to TWKB:" $table " Precision:" $precision
+	spatialite -silent -noheader "$D" "SELECT DiscardGeometryColumn('${table}', 'GEOMETRY'); UPDATE ${table} SET geometry = (SELECT AsTWKB(geometry, ${precision}) FROM ${table} t2 where ${table}.rowid=t2.rowid);"
+    else
+	echo "Converting to WKB:" $table
+	spatialite -silent -noheader "$D" "SELECT DiscardGeometryColumn('${table}', 'GEOMETRY'); UPDATE ${table} SET geometry = (SELECT AsBinary(geometry) FROM ${table} t2 where ${table}.rowid=t2.rowid);"
+
     fi
 done
 

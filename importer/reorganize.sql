@@ -224,7 +224,8 @@ WHEN barrier IN ('hedge') THEN 'hedge'
 END AS type FROM lines WHERE type IS NOT NULL;
 
 DROP VIEW IF EXISTS vw_osm_buildings;
-CREATE VIEW vw_osm_buildings AS SELECT geometry, ST_MinY(geometry) AS y_min FROM   multipolygons
+CREATE VIEW vw_osm_buildings AS
+SELECT geometry, ST_MinY(geometry) AS y_min FROM   multipolygons
 WHERE  building IS NOT NULL OR railway IN ('station') OR aeroway IN ('terminal');
 
 DROP VIEW IF EXISTS vw_osm_building_labels;
